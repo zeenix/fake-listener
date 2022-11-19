@@ -50,9 +50,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .name(BUS_NAME_ADAPTOR)?
         .serve_at(INTERFACE_NAME_ADAPTOR, dbus_adaptor)?
         .build()
-        .await
-        .map_err(|e| error!("Unable to get dbus connection: {}", e))
-        .expect("Cannot listen system dbus connection.");
+        .await?;
 
     let dbus_conn_listener = dbus_conn.clone();
     task::spawn(async move {
